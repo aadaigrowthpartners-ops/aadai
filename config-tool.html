@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aadai Growth Partners — Config Tool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0A0F;
+      --bg-card:   #13151E;
+      --bg-input:  #0E1018;
+      --border:    rgba(255,255,255,0.08);
+      --gold:      #F5A623;
+      --gold-dim:  rgba(245,166,35,0.15);
+      --green:     #22C55E;
+      --green-dim: rgba(34,197,94,0.12);
+      --red:       #EF4444;
+      --text:      #E8E8F0;
+      --muted:     #6B7280;
+      --font-h:    'Urbanist', sans-serif;
+      --font-b:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      min-height: 100vh;
+      padding: 2rem 1rem 5rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .header__badge {
+      display: inline-block;
+      background: var(--gold-dim);
+      border: 1px solid rgba(245,166,35,0.3);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+    .header h1 {
+      font-family: var(--font-h);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2;
+    }
+    .header h1 span { color: var(--gold); }
+    .header p {
+      color: var(--muted);
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    /* ── Layout ── */
+    .wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ── Section Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .card:focus-within { border-color: rgba(245,166,35,0.35); }
+
+    .card__head {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .card__icon {
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 0.6rem;
+      display: grid; place-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .card__icon--gold { background: var(--gold-dim); }
+    .card__icon--green { background: var(--green-dim); }
+    .card__icon--blue { background: rgba(99,102,241,0.15); }
+
+    .card__title {
+      font-family: var(--font-h);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .card__sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .card__body { padding: 1.5rem; }
+
+    /* ── Form elements ── */
+    .field { margin-bottom: 1.25rem; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    label span.req { color: var(--gold); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      padding: 0.7rem 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245,166,35,0.12);
+    }
+    input::placeholder { color: #3a3d4a; }
+    select option { background: #13151E; }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+    .hint code {
+      background: rgba(255,255,255,0.07);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 540px) { .row-2 { grid-template-columns: 1fr; } }
+
+    /* ── Promo table ── */
+    .promo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .promo-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr auto auto;
+      gap: 0.6rem;
+      align-items: center;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      padding: 0.6rem 0.8rem;
+      transition: border-color 0.2s;
+    }
+    .promo-row:hover { border-color: rgba(245,166,35,0.2); }
+    .promo-row input[type="text"],
+    .promo-row input[type="number"] {
+      background: transparent;
+      border: none;
+      padding: 0.3rem 0.4rem;
+      font-size: 0.85rem;
+    }
+    .promo-row input:focus { box-shadow: none; border-bottom: 1px solid var(--gold); border-radius: 0; }
+
+    .toggle {
+      position: relative;
+      width: 36px; height: 20px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle__slider {
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .toggle__slider::before {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      left: 3px; top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.25s;
+    }
+    .toggle input:checked + .toggle__slider { background: var(--green); }
+    .toggle input:checked + .toggle__slider::before { transform: translateX(16px); }
+
+    .btn-del {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .btn-del:hover { opacity: 1; }
+
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: none;
+      border: 1px dashed rgba(245,166,35,0.3);
+      color: var(--gold);
+      font-family: var(--font-b);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-add:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+    .promo-head {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr auto auto;
+      gap: 0.6rem;
+      padding: 0 0.8rem 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    /* ── Generate button ── */
+    .generate-wrap {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+    .btn-generate {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, #F5A623, #e8941a);
+      color: #0A0A0F;
+      font-family: var(--font-h);
+      font-weight: 800;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.9rem 2.5rem;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 24px rgba(245,166,35,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(245,166,35,0.45);
+    }
+    .btn-generate:active { transform: translateY(0); }
+
+    /* ── Output ── */
+    .output-section { display: none; }
+    .output-section.visible { display: block; }
+
+    .output-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .output-card__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .output-card__title {
+      font-family: var(--font-h);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .file-path {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: monospace;
+    }
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.25);
+      color: var(--gold);
+      font-family: var(--font-b);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.4rem 0.9rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-copy:hover { background: rgba(245,166,35,0.2); }
+    .btn-copy.copied { background: var(--green-dim); border-color: rgba(34,197,94,0.3); color: var(--green); }
+
+    pre {
+      padding: 1.25rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #c9d1e0;
+      white-space: pre;
+    }
+    pre .kw  { color: #c792ea; }
+    pre .str { color: #c3e88d; }
+    pre .num { color: #f78c6c; }
+    pre .cmt { color: #546e7a; font-style: italic; }
+    pre .key { color: #89ddff; }
+
+    /* ── Success banner ── */
+    .success-banner {
+      display: none;
+      background: var(--green-dim);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      color: var(--green);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.4s ease;
+    }
+    .success-banner.visible { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Step dots ── */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .step__dot {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: grid; place-items: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .step--active .step__dot { background: var(--gold); color: #000; border-color: var(--gold); }
+    .step--active { color: var(--gold); }
+    .step__line { width: 32px; height: 1px; background: var(--border); }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header__badge">🔧 Admin Config Tool</div>
+    <h1>Aadai Growth Partners<br><span>— Config Setup</span></h1>
+    <p>Fill in your credentials below and click Generate to get your config files.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step step--active">
+      <div class="step__dot">1</div>
+      <span>Enter Details</span>
+    </div>
+    <div class="step__line"></div>
+    <div class="step">
+      <div class="step__dot">2</div>
+      <span>Generate Files</span>
+    </div>
+    <div class="step__line"></div>
+    <div class="step">
+      <div class="step__dot">3</div>
+      <span>Copy & Paste</span>
+    </div>
+  </div>
+
+  <div class="wrapper">
+
+    <!-- ── EmailJS ── -->
+    <div class="card" id="emailjs-card">
+      <div class="card__head">
+        <div class="card__icon card__icon--gold">✉️</div>
+        <div>
+          <div class="card__title">EmailJS Credentials</div>
+          <div class="card__sub">From emailjs.com → Account + Email Services + Templates</div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="row-2">
+          <div class="field">
+            <label for="publicKey">Public Key <span class="req">*</span></label>
+            <input type="text" id="publicKey" placeholder="e.g. aBcDeFgHiJkLmNoPq" />
+            <div class="hint">Account → API Keys</div>
+          </div>
+          <div class="field">
+            <label for="serviceId">Service ID <span class="req">*</span></label>
+            <input type="text" id="serviceId" placeholder="e.g. service_xxxxxxx" />
+            <div class="hint">Email Services → your service</div>
+          </div>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="otpTemplateId">OTP Template ID <span class="req">*</span></label>
+            <input type="text" id="otpTemplateId" placeholder="e.g. template_xxxxxxx" />
+            <div class="hint">Template 1 → Copy ID</div>
+          </div>
+          <div class="field">
+            <label for="leadTemplateId">Lead Template ID <span class="req">*</span></label>
+            <input type="text" id="leadTemplateId" placeholder="e.g. template_yyyyyyy" />
+            <div class="hint">Template 2 → Copy ID</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Razorpay ── -->
+    <div class="card" id="razorpay-card">
+      <div class="card__head">
+        <div class="card__icon card__icon--blue">💳</div>
+        <div>
+          <div class="card__title">Razorpay Key</div>
+          <div class="card__sub">Dashboard → Settings → API Keys</div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="row-2">
+          <div class="field">
+            <label for="razorpayKey">Razorpay Key ID <span class="req">*</span></label>
+            <input type="text" id="razorpayKey" placeholder="rzp_test_... or rzp_live_..." />
+            <div class="hint">Starts with <code>rzp_test_</code> or <code>rzp_live_</code></div>
+          </div>
+          <div class="field">
+            <label for="razorpayMode">Mode</label>
+            <select id="razorpayMode">
+              <option value="test">🧪 Test Mode</option>
+              <option value="live">🚀 Live Mode</option>
+            </select>
+            <div class="hint">Switch to Live before going live</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Promo Codes ── -->
+    <div class="card" id="promo-card">
+      <div class="card__head">
+        <div class="card__icon card__icon--gold">🏷️</div>
+        <div>
+          <div class="card__title">Promo Codes</div>
+          <div class="card__sub">Toggle active/inactive without deleting</div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="row-2" style="margin-bottom:1.25rem">
+          <div class="field">
+            <label for="originalPrice">Original Price (₹)</label>
+            <input type="number" id="originalPrice" value="50000" />
+            <div class="hint">Shown as strikethrough</div>
+          </div>
+          <div class="field">
+            <label for="sellingPrice">Selling Price (₹)</label>
+            <input type="number" id="sellingPrice" value="35000" />
+            <div class="hint">Actual checkout price</div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="promoTimer">Promo Timer (minutes)</label>
+          <input type="number" id="promoTimer" value="10" style="max-width:140px" />
+          <div class="hint">Countdown shown on checkout step 3</div>
+        </div>
+
+        <div style="margin-top:1.5rem;">
+          <div class="promo-head">
+            <span>Code</span>
+            <span>Discount %</span>
+            <span>Label</span>
+            <span>Active</span>
+            <span></span>
+          </div>
+          <div class="promo-list" id="promoList"></div>
+          <button class="btn-add" onclick="addPromoRow()">＋ Add Promo Code</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Generate ── -->
+    <div class="generate-wrap">
+      <button class="btn-generate" onclick="generate()">
+        ⚡ Generate Config Files
+      </button>
+    </div>
+
+    <!-- ── Output ── -->
+    <div class="output-section" id="outputSection">
+      <div class="success-banner visible" id="successBanner">
+        ✅ Files generated! Copy each block and paste into the corresponding file in your project.
+      </div>
+
+      <div class="output-card">
+        <div class="output-card__head">
+          <div>
+            <div class="output-card__title">📄 emailConfig.js</div>
+            <div class="file-path">src/config/emailConfig.js</div>
+          </div>
+          <button class="btn-copy" onclick="copyBlock('emailOutput', this)">⎘ Copy</button>
+        </div>
+        <pre id="emailOutput"></pre>
+      </div>
+
+      <div class="output-card">
+        <div class="output-card__head">
+          <div>
+            <div class="output-card__title">📄 promoCodes.js</div>
+            <div class="file-path">src/config/promoCodes.js</div>
+          </div>
+          <button class="btn-copy" onclick="copyBlock('promoOutput', this)">⎘ Copy</button>
+        </div>
+        <pre id="promoOutput"></pre>
+      </div>
+    </div>
+
+  </div><!-- /wrapper -->
+
+  <script>
+    // ── Default promo rows ──
+    const defaultPromos = [
+      { code: 'LAUNCH10', discount: 10, label: '10% Off — Launch Special', active: true },
+    ];
+
+    function addPromoRow(data = { code: '', discount: '', label: '', active: true }) {
+      const list = document.getElementById('promoList');
+      const row = document.createElement('div');
+      row.className = 'promo-row';
+      const id = Date.now();
+      row.innerHTML = `
+        <input type="text" placeholder="MYCODE" value="${data.code}" data-field="code" />
+        <input type="number" placeholder="20" value="${data.discount}" min="1" max="100" data-field="discount" />
+        <input type="text" placeholder="20% Off — Special" value="${data.label}" data-field="label" />
+        <label class="toggle" title="Active">
+          <input type="checkbox" ${data.active ? 'checked' : ''} data-field="active" />
+          <span class="toggle__slider"></span>
+        </label>
+        <button class="btn-del" onclick="this.closest('.promo-row').remove()" title="Remove">✕</button>
+      `;
+      list.appendChild(row);
+    }
+
+    defaultPromos.forEach(addPromoRow);
+
+    // ── Collect promo rows ──
+    function getPromos() {
+      const rows = document.querySelectorAll('.promo-row');
+      return Array.from(rows).map(row => ({
+        code:     row.querySelector('[data-field="code"]').value.trim().toUpperCase(),
+        discount: parseInt(row.querySelector('[data-field="discount"]').value) || 0,
+        label:    row.querySelector('[data-field="label"]').value.trim(),
+        active:   row.querySelector('[data-field="active"]').checked,
+      })).filter(p => p.code);
+    }
+
+    // ── Generate ──
+    function generate() {
+      const pk     = document.getElementById('publicKey').value.trim();
+      const svc    = document.getElementById('serviceId').value.trim();
+      const otpTpl = document.getElementById('otpTemplateId').value.trim();
+      const ldTpl  = document.getElementById('leadTemplateId').value.trim();
+      const rzKey  = document.getElementById('razorpayKey').value.trim();
+      const mode   = document.getElementById('razorpayMode').value;
+      const origP  = parseInt(document.getElementById('originalPrice').value) || 50000;
+      const sellP  = parseInt(document.getElementById('sellingPrice').value) || 35000;
+      const timer  = parseInt(document.getElementById('promoTimer').value) || 10;
+      const promos = getPromos();
+
+      // emailConfig
+      const emailJs = [
+        `// src/config/emailConfig.js`,
+        `// ⚠️  Never commit your Razorpay Key Secret to this file — Key ID only.`,
+        ``,
+        `export const EMAIL_CONFIG = {`,
+        `  PUBLIC_KEY:       "${pk || 'YOUR_PUBLIC_KEY'}",`,
+        `  SERVICE_ID:       "${svc || 'YOUR_SERVICE_ID'}",`,
+        `  OTP_TEMPLATE_ID:  "${otpTpl || 'YOUR_OTP_TEMPLATE_ID'}",`,
+        `  LEAD_TEMPLATE_ID: "${ldTpl || 'YOUR_LEAD_TEMPLATE_ID'}",`,
+        `  RAZORPAY_KEY_ID:  "${rzKey || 'rzp_test_YOUR_KEY_ID'}",  // mode: ${mode}`,
+        `};`,
+      ].join('\n');
+
+      // promoCodes
+      const promoRows = promos.map(p =>
+        `  { code: "${p.code}", discount: ${p.discount}, label: "${p.label}", active: ${p.active} },`
+      ).join('\n');
+
+      const promoJs = [
+        `// src/config/promoCodes.js`,
+        `// To disable a code without deleting it: set active: false`,
+        ``,
+        `export const ORIGINAL_PRICE  = ${origP};   // shown strikethrough`,
+        `export const SELLING_PRICE   = ${sellP};   // actual checkout price`,
+        `export const PROMO_TIMER_MINUTES = ${timer};`,
+        ``,
+        `export const PROMO_CODES = [`,
+        promoRows || `  // no promo codes yet`,
+        `];`,
+      ].join('\n');
+
+      document.getElementById('emailOutput').textContent = emailJs;
+      document.getElementById('promoOutput').textContent = promoJs;
+
+      const out = document.getElementById('outputSection');
+      out.classList.add('visible');
+      out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Update step dots
+      document.querySelectorAll('.step__dot')[1].style.background = 'var(--gold)';
+      document.querySelectorAll('.step__dot')[1].style.color = '#000';
+      document.querySelectorAll('.step')[1].style.color = 'var(--gold)';
+    }
+
+    // ── Copy ──
+    function copyBlock(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        // update step 3 dot
+        document.querySelectorAll('.step__dot')[2].style.background = 'var(--green)';
+        document.querySelectorAll('.step__dot')[2].style.color = '#fff';
+        document.querySelectorAll('.step')[2].style.color = 'var(--green)';
+        setTimeout(() => {
+          btn.textContent = '⎘ Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
