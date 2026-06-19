@@ -11,5 +11,4 @@ export const PROMO_CODES = [
   { code: 'AGP15PRO',  discount: 15, active: true },
   { code: 'AGP20PLUS', discount: 20, active: true },
   { code: 'AGP25MAX',  discount: 25, active: true },
-  { code: 'TESTVENGAT',  discount: 99.99, active: true },
 ]

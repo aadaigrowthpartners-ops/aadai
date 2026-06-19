@@ -11,11 +11,11 @@ const NAV_LINKS = [
 
 export default function Header() {
   const navigate = useNavigate()
-  const [drawerOpen,   setDrawerOpen]   = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   // Close drawer on resize to desktop
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 700) setDrawerOpen(false) }
+    const onResize = () => { if (window.innerWidth > 768) setDrawerOpen(false) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])
@@ -28,7 +28,7 @@ export default function Header() {
           Aadai <span>Growth</span> Partners
         </div>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav — hidden on mobile via responsive.css */}
         <nav aria-label="Site navigation">
           <ul className="main-header__nav">
             {NAV_LINKS.map(({ label, href }) => (
@@ -39,16 +39,17 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Desktop CTA */}
+        {/* CTA Button — always visible, text changes on mobile */}
         <button
           className="btn-primary main-header__cta"
           id="main-header-cta"
           onClick={() => navigate('/checkout')}
         >
-          Book Strategy Call →
+          <span className="agp-cta-full">Book Strategy Call →</span>
+          <span className="agp-cta-short">Book Call</span>
         </button>
 
-        {/* Hamburger */}
+        {/* Hamburger — hidden on mobile per spec (CTA is enough) */}
         <button
           className={`main-header__burger ${drawerOpen ? 'open' : ''}`}
           aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
@@ -60,7 +61,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer — only shown if hamburger is visible */}
       <div className={`main-header__drawer ${drawerOpen ? 'open' : ''}`} id="mobile-drawer">
         {NAV_LINKS.map(({ label, href }) => (
           <a key={label} href={href} onClick={() => setDrawerOpen(false)}>{label}</a>

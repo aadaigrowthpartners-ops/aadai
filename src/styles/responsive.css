@@ -1,0 +1,396 @@
+/* ================================================
+   AADAI GROWTH PARTNERS — responsive.css
+   Single file for all device breakpoints.
+   Must be imported LAST in main.jsx to override all other styles.
+
+   Breakpoints:
+   xs:  < 480px   (small phones)
+   sm:  480–767px (large phones)
+   md:  768–1023px (tablets)
+   lg:  1024px+   (desktop)
+================================================ */
+
+/* GLOBAL RESET */
+*, *::before, *::after {
+  box-sizing: border-box !important;
+}
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* ---- HEADER (main-header existing classes) ---- */
+/* Desktop: CTA text stays full */
+.agp-cta-short {
+  display: none;
+}
+.agp-cta-full {
+  display: inline;
+}
+
+@media (max-width: 767px) {
+  /* Hide nav links on mobile — no hamburger needed per spec */
+  .main-header__nav {
+    display: none !important;
+  }
+  /* Hide hamburger — CTA button is enough */
+  .main-header__burger {
+    display: none !important;
+  }
+  /* Close drawer if somehow open */
+  .main-header__drawer {
+    display: none !important;
+  }
+  /* Show CTA button on mobile (was hidden below 700px before) */
+  .main-header__cta {
+    display: flex !important;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+  .main-header__inner {
+    padding: 0 16px !important;
+    height: 52px !important;
+  }
+  .main-header__logo {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* CTA responsive text swap */
+@media (max-width: 479px) {
+  .main-header__cta .agp-cta-full {
+    display: none !important;
+  }
+  .main-header__cta .agp-cta-short {
+    display: inline !important;
+  }
+}
+@media (min-width: 480px) {
+  .main-header__cta .agp-cta-full {
+    display: inline !important;
+  }
+  .main-header__cta .agp-cta-short {
+    display: none !important;
+  }
+}
+
+/* ---- STEP INDICATOR (agp-steps classes) ---- */
+.agp-steps {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+.agp-step-circle {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  flex-shrink: 0 !important;
+}
+.agp-step-label {
+  font-size: 13px !important;
+  white-space: nowrap !important;
+  margin-left: 6px !important;
+}
+.agp-step-connector {
+  flex: 1 !important;
+  height: 1px !important;
+  background: #333 !important;
+  margin: 0 8px !important;
+  min-width: 8px !important;
+  max-width: 60px !important;
+}
+
+@media (max-width: 479px) {
+  .agp-steps {
+    padding: 0 12px !important;
+  }
+  .agp-step-circle {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 11px !important;
+    flex-shrink: 0 !important;
+  }
+  .agp-step-connector {
+    max-width: 16px !important;
+    min-width: 4px !important;
+    margin: 0 4px !important;
+  }
+  /* Hide all step labels on xs */
+  .agp-step-label {
+    display: none !important;
+  }
+  /* Show only the active step label */
+  .agp-step-label.agp-step-active {
+    display: block !important;
+    font-size: 10px !important;
+    max-width: 60px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    margin-left: 4px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .agp-step-label {
+    font-size: 11px !important;
+    max-width: 70px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .agp-step-connector {
+    max-width: 28px !important;
+    margin: 0 6px !important;
+  }
+}
+
+/* ---- OTP INPUT BOXES ---- */
+.agp-otp-row {
+  display: flex !important;
+  gap: 8px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  justify-content: center !important;
+}
+.agp-otp-input {
+  flex: 1 !important;
+  min-width: 0 !important;
+  max-width: 52px !important;
+  aspect-ratio: 1 !important;
+  text-align: center !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  background: #1A1A1A !important;
+  border: 1px solid #333 !important;
+  color: white !important;
+}
+
+@media (max-width: 479px) {
+  .agp-otp-row {
+    gap: 6px !important;
+    padding: 0 4px !important;
+  }
+  .agp-otp-input {
+    max-width: 44px !important;
+    font-size: 16px !important;
+    border-radius: 6px !important;
+  }
+}
+
+@media (max-width: 359px) {
+  .agp-otp-row {
+    gap: 4px !important;
+  }
+  .agp-otp-input {
+    max-width: 36px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* ---- CHECKOUT PAGE ---- */
+.agp-checkout-container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 16px !important;
+  box-sizing: border-box !important;
+}
+.agp-checkout-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 48px !important;
+  align-items: start !important;
+}
+
+@media (max-width: 1023px) {
+  .agp-checkout-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    max-width: 560px !important;
+    margin: 0 auto !important;
+  }
+  .agp-checkout-left-col {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .agp-checkout-container {
+    padding: 0 12px !important;
+  }
+  .agp-form-card {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+  }
+  .agp-form-card input {
+    font-size: 16px !important;
+    width: 100% !important;
+  }
+  .agp-checkout-title {
+    font-size: clamp(22px, 7vw, 36px) !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* ---- ORDER SUMMARY (Step 3) ---- */
+@media (max-width: 767px) {
+  .agp-order-card {
+    padding: 20px 16px !important;
+    margin: 0 !important;
+  }
+  .agp-promo-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  .agp-promo-input {
+    width: 100% !important;
+  }
+  .agp-promo-btn {
+    width: 100% !important;
+  }
+}
+
+/* ---- PAY ADVANCE PAGE — PLAN CARDS ---- */
+.agp-plan-card-inner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+.agp-plan-name-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+}
+.agp-plan-right {
+  text-align: right !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 767px) {
+  .agp-plan-card {
+    padding: 14px 14px !important;
+  }
+  .agp-plan-card-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+  .agp-plan-left {
+    width: 100% !important;
+  }
+  .agp-plan-right {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    text-align: left !important;
+    flex-shrink: unset !important;
+  }
+  .agp-plan-right-label {
+    font-size: 12px !important;
+    color: #888 !important;
+  }
+  .agp-plan-amount {
+    font-size: 18px !important;
+  }
+  .agp-plan-badge {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+  }
+  .agp-plan-name {
+    font-size: 14px !important;
+  }
+  .agp-plan-remaining {
+    font-size: 11px !important;
+  }
+}
+
+/* ---- ADVANCE PAGE CONTAINER ---- */
+@media (max-width: 767px) {
+  .agp-advance-container {
+    padding: 16px 12px !important;
+  }
+  .agp-advance-card {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
+  }
+  .agp-advance-title {
+    font-size: 22px !important;
+  }
+}
+
+/* ---- LANDING PAGE ---- */
+@media (max-width: 767px) {
+  .agp-hero {
+    padding: 48px 16px 32px !important;
+    text-align: center !important;
+  }
+  .agp-hero-badge {
+    font-size: 10px !important;
+    letter-spacing: 0.04em !important;
+    white-space: normal !important;
+    text-align: center !important;
+    padding: 6px 16px !important;
+    display: inline-block !important;
+  }
+  .agp-hero-title {
+    font-size: clamp(28px, 9vw, 44px) !important;
+    line-height: 1.1 !important;
+  }
+  .agp-hero-sub {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+  .agp-hero-cta-group {
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+  .agp-hero-cta-group a,
+  .agp-hero-cta-group button {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+  .agp-price-block {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 16px !important;
+  }
+}
+
+/* ---- ALL BUTTONS MIN TAP TARGET ---- */
+@media (max-width: 767px) {
+  .agp-pay-btn {
+    min-height: 52px !important;
+    font-size: 15px !important;
+    width: 100% !important;
+  }
+}
+
+/* ---- PREVENT ANY ELEMENT CAUSING X-SCROLL ---- */
+@media (max-width: 767px) {
+  .agp-container,
+  .agp-form-card,
+  .agp-order-card,
+  .agp-advance-card,
+  .agp-plan-card {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+}

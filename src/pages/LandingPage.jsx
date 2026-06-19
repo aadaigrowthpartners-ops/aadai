@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ORIGINAL_PRICE, SELLING_PRICE } from '../config/promoCodes'
+import Header from '../components/Header'
 import '../styles/landing.css'
 
 /* ── Helpers ── */
@@ -126,32 +127,34 @@ export default function LandingPage() {
 
   return (
     <>
+      <Header />
+
       {/* ══════════════════════════════════════
           HERO
       ══════════════════════════════════════ */}
-      <section className="hero" id="hero">
+      <section className="hero agp-hero" id="hero">
         <div className="hero__grid-bg" />
         <div className="hero__glow" />
         <div className="container">
           <div className="hero__content">
-            <div className="hero__badge">
+            <div className="hero__badge agp-hero-badge">
               <span className="hero__badge-dot" />
               Limited Spots Available — Tamil Nadu Only
             </div>
 
-            <h1 className="hero__title">
+            <h1 className="hero__title agp-hero-title">
               Stop Chasing<br />
               <span className="line-gold">Cold Leads.</span><br />
               <span className="line-dim">Get Direct Buyers.</span>
             </h1>
 
-            <p className="hero__sub">
+            <p className="hero__sub agp-hero-sub">
               Join Tamil Nadu's most exclusive real estate buyer pipeline. Pre-verified buyers
               with confirmed budgets of ₹50L–₹5Cr, ready to close within 30–90 days.
               No portals. No middlemen. No cold calls.
             </p>
 
-            <div className="hero__price-block">
+            <div className="hero__price-block agp-price-block">
               <div>
                 <div className="hero__price-old">{fmt(ORIGINAL_PRICE)}</div>
               </div>
@@ -160,7 +163,7 @@ export default function LandingPage() {
               <div className="hero__price-save">Save {saved}%</div>
             </div>
 
-            <div className="hero__cta-group">
+            <div className="hero__cta-group agp-hero-cta-group">
               <button className="btn-primary hero__cta" onClick={goCheckout} id="hero-cta-main">
                 🚀 Claim Your Spot — {fmt(SELLING_PRICE)}
               </button>

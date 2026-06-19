@@ -120,10 +120,9 @@
   font-size: 0.88rem;
 }
 
-@media (max-width: 700px) {
-  .main-header__nav  { display: none; }
-  .main-header__cta  { display: none; }
-  .main-header__burger { display: flex; }
+@media (max-width: 768px) {
+  .main-header__nav    { display: none; }
+  .main-header__burger { display: none; }
 }
 
 /* Push checkout-page content below the header */

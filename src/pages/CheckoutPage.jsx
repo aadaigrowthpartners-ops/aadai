@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { PROMO_CODES, SELLING_PRICE, PROMO_TIMER_MINUTES } from '../config/promoCodes'
 import { sendOtpEmail, sendLeadEmail } from '../services/emailService'
 import { openPaymentModal } from '../services/paymentService'
+import Header from '../components/Header'
 import '../styles/checkout.css'
 
 /* ── Helpers ── */
@@ -32,14 +33,14 @@ const RULES = {
 function Steps({ current }) {
   const items = ['Your Details', 'Verify OTP', 'Order Summary']
   return (
-    <div className="steps">
+    <div className="steps agp-steps">
       {items.map((label, i) => (
         <div key={label} style={{ display: 'flex', alignItems: 'center' }}>
           <div className={`step-item ${current === i ? 'active' : ''} ${current > i ? 'done' : ''}`}>
-            <div className="step-item__num">{current > i ? '✓' : i + 1}</div>
-            <span className="step-item__label">{label}</span>
+            <div className="step-item__num agp-step-circle">{current > i ? '✓' : i + 1}</div>
+            <span className={`step-item__label agp-step-label${current === i ? ' agp-step-active' : ''}`}>{label}</span>
           </div>
-          {i < items.length - 1 && <div className="step-connector" />}
+          {i < items.length - 1 && <div className="step-connector agp-step-connector" />}
         </div>
       ))}
     </div>
@@ -333,12 +334,13 @@ export default function CheckoutPage() {
   ════════════════════════════════════════════ */
   return (
     <>
-      <div className="checkout-page">
+      <Header />
+      <div className="checkout-page agp-checkout-container">
         <Steps current={step} />
 
         {/* ══════════════════ STEP 1 ══════════════════ */}
         {step === 0 && (
-          <div className="checkout-card">
+          <div className="checkout-card agp-form-card">
             <div className="checkout-card__title">Your Details</div>
             <div className="checkout-card__sub">We'll send your OTP to the email below.</div>
 
@@ -448,12 +450,12 @@ export default function CheckoutPage() {
               Valid for 10 minutes. Check your spam folder if you don't see it.
             </p>
 
-            <div className="otp__boxes" onPaste={handleOtpPaste}>
+            <div className="otp__boxes agp-otp-row" onPaste={handleOtpPaste} style={{ width: '100%', boxSizing: 'border-box' }}>
               {otp.map((digit, i) => (
                 <input
                   key={i}
                   ref={el => (otpRefs.current[i] = el)}
-                  className={`otp__box ${otpError ? 'error' : digit ? 'filled' : ''}`}
+                  className={`otp__box agp-otp-input ${otpError ? 'error' : digit ? 'filled' : ''}`}
                   type="text"
                   inputMode="numeric"
                   maxLength={1}
@@ -504,23 +506,24 @@ export default function CheckoutPage() {
 
         {/* ══════════════════ STEP 3 ══════════════════ */}
         {step === 2 && (
-          <div className="checkout-card">
+          <div className="checkout-card agp-order-card">
             <div className="checkout-card__title">Order Summary</div>
             <div className="checkout-card__sub">Apply a promo code to save more.</div>
 
             {/* Promo */}
             {!appliedPromo ? (
               <>
-                <div className="promo-input-row">
+                <div className="promo-input-row agp-promo-row">
                   <input
                     type="text"
                     placeholder="PROMO CODE"
                     value={promoInput}
                     onChange={e => { setPromoInput(e.target.value.toUpperCase()); setPromoError('') }}
                     id="promo-input"
+                    className="agp-promo-input"
                     onKeyDown={e => e.key === 'Enter' && applyPromo()}
                   />
-                  <button className="btn-apply" onClick={applyPromo} id="apply-promo-btn">Apply</button>
+                  <button className="btn-apply agp-promo-btn" onClick={applyPromo} id="apply-promo-btn">Apply</button>
                 </div>
                 {promoError && (
                   <div className="notification notification-error" style={{ marginBottom: '1rem', padding: '0.75rem', fontSize: '0.8rem' }}>
@@ -559,7 +562,7 @@ export default function CheckoutPage() {
             </div>
 
             <button
-              className="btn-primary btn-checkout"
+              className="btn-primary btn-checkout agp-pay-btn"
               onClick={handlePay}
               id="pay-now-btn"
               disabled={paying}
@@ -569,6 +572,27 @@ export default function CheckoutPage() {
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '0.75rem' }}>
               Secured by Razorpay · SSL encrypted · One-time payment
             </p>
+
+            <button
+              onClick={() => navigate('/pay-advance')}
+              style={{
+                width: '100%',
+                marginTop: '10px',
+                background: 'transparent',
+                border: '1px solid #F5A623',
+                color: '#F5A623',
+                padding: '12px 20px',
+                borderRadius: '8px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(245,166,35,0.08)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+            >
+              Can't pay full amount? Pay Advance →
+            </button>
           </div>
         )}
       </div>
