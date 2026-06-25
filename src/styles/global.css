@@ -1,19 +1,22 @@
 /* ── Google Fonts loaded in index.html ── */
 
-/* ── CSS Variables ── */
+/* ── CSS Variables — Light Enterprise Theme ── */
 :root {
-  --bg-primary:    #0A0A0F;
-  --bg-card:       #13151E;
-  --bg-card-2:     #0E1018;
-  --border:        rgba(255, 255, 255, 0.08);
-  --border-hover:  rgba(245, 166, 35, 0.3);
-  --accent-gold:   #F5A623;
-  --accent-gold-2: #e8941a;
+  --bg-primary:    #FAFAFA;
+  --bg-alt:        #FFFFFF;
+  --bg-card:       #FFFFFF;
+  --bg-card-2:     #F5F5F5;
+  --border:        #EEEEEE;
+  --border-hover:  #B8932A;
+  --accent-gold:   #B8932A;
+  --accent-gold-2: #9a7820;
   --accent-green:  #22C55E;
-  --accent-red:    #EF4444;
-  --text-primary:  #E8E8F0;
-  --text-muted:    #6B7280;
-  --text-faint:    #3a3d4a;
+  --accent-red:    #DC2626;
+  --accent-navy:   #1B2B5E;
+  --accent-navy-2: #0A1F5C;
+  --text-primary:  #1A1A1A;
+  --text-muted:    #6B6B6B;
+  --text-faint:    #AAAAAA;
   --font-display:  'Urbanist', sans-serif;
   --font-body:     'Plus Jakarta Sans', sans-serif;
   --radius-sm:     0.5rem;
@@ -21,6 +24,8 @@
   --radius-lg:     1.25rem;
   --radius-xl:     1.75rem;
   --transition:    0.25s ease;
+  --shadow-card:   0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-card-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* ── Reset ── */
@@ -34,7 +39,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  padding-top: 90px;
+  padding-top: 68px;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -53,8 +58,8 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-2));
-  color: #0A0A0F;
+  background: var(--accent-navy);
+  color: #FFFFFF;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1rem;
@@ -63,13 +68,14 @@ a { color: inherit; text-decoration: none; }
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  box-shadow: 0 4px 24px rgba(245, 166, 35, 0.28);
-  transition: transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 16px rgba(27, 43, 94, 0.25);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   text-decoration: none;
 }
 .btn-primary:hover {
+  background: var(--accent-navy-2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 36px rgba(245, 166, 35, 0.45);
+  box-shadow: 0 8px 28px rgba(27, 43, 94, 0.35);
 }
 .btn-primary:active { transform: translateY(0); }
 
@@ -79,20 +85,20 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
   gap: 0.5rem;
   background: transparent;
-  color: var(--accent-gold);
+  color: var(--accent-navy);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.95rem;
   padding: 0.8rem 1.75rem;
-  border: 1px solid rgba(245, 166, 35, 0.35);
+  border: 1.5px solid var(--accent-navy);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition);
   text-decoration: none;
 }
 .btn-secondary:hover {
-  background: rgba(245, 166, 35, 0.08);
-  border-color: var(--accent-gold);
+  background: rgba(27, 43, 94, 0.06);
+  border-color: var(--accent-navy-2);
 }
 
 /* ── Gold Tag ── */
@@ -100,8 +106,8 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(245, 166, 35, 0.12);
-  border: 1px solid rgba(245, 166, 35, 0.25);
+  background: rgba(184, 147, 42, 0.10);
+  border: 1px solid rgba(184, 147, 42, 0.25);
   color: var(--accent-gold);
   font-size: 0.75rem;
   font-weight: 700;
@@ -114,9 +120,9 @@ a { color: inherit; text-decoration: none; }
 /* ── Section heading ── */
 .section-label {
   display: inline-block;
-  background: rgba(245, 166, 35, 0.1);
-  border: 1px solid rgba(245, 166, 35, 0.2);
-  color: var(--accent-gold);
+  background: rgba(27, 43, 94, 0.07);
+  border: 1px solid rgba(27, 43, 94, 0.15);
+  color: var(--accent-navy);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -145,6 +151,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Utility ── */
 .text-gold   { color: var(--accent-gold); }
+.text-navy   { color: var(--accent-navy); }
 .text-green  { color: var(--accent-green); }
 .text-muted  { color: var(--text-muted); }
 .text-center { text-align: center; }

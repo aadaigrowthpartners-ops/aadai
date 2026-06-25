@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════
-   CHECKOUT PAGE STYLES
+   CHECKOUT PAGE STYLES — Light Enterprise Theme
 ══════════════════════════════════════════ */
 
 .checkout-page {
@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   padding: 5rem 1.5rem 4rem;
-  background: var(--bg-primary);
+  background: #FAFAFA;
 }
 
 /* ── Back link ── */
@@ -26,7 +26,7 @@
   border: none;
   font-family: var(--font-body);
 }
-.checkout__back:hover { color: var(--accent-gold); }
+.checkout__back:hover { color: var(--accent-navy); }
 
 /* ── Step indicator ── */
 .steps {
@@ -43,8 +43,8 @@
 .step-item__num {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #EEEEEE;
+  border: 1px solid #DDDDDD;
   display: grid; place-items: center;
   font-size: 0.8rem;
   font-weight: 700;
@@ -59,11 +59,11 @@
   white-space: nowrap;
 }
 .step-item.active .step-item__num {
-  background: var(--accent-gold);
-  border-color: var(--accent-gold);
-  color: #0A0A0F;
+  background: var(--accent-navy);
+  border-color: var(--accent-navy);
+  color: #FFFFFF;
 }
-.step-item.active .step-item__label { color: var(--accent-gold); }
+.step-item.active .step-item__label { color: var(--accent-navy); }
 .step-item.done .step-item__num {
   background: var(--accent-green);
   border-color: var(--accent-green);
@@ -72,24 +72,26 @@
 .step-connector {
   width: 48px;
   height: 1px;
-  background: var(--border);
+  background: #DDDDDD;
   margin: 0 0.25rem;
 }
 
 /* ── Card ── */
 .checkout-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: #FFFFFF;
+  border: 1px solid #E8E8E8;
   border-radius: var(--radius-xl);
   padding: 2.5rem;
   width: 100%;
   max-width: 480px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 .checkout-card__title {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 1.5rem;
   margin-bottom: 0.4rem;
+  color: #1A1A1A;
 }
 .checkout-card__sub {
   font-size: 0.85rem;
@@ -110,10 +112,10 @@
 }
 .form-field input {
   width: 100%;
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
   border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  color: #1A1A1A;
   font-family: var(--font-body);
   font-size: 0.95rem;
   padding: 0.8rem 1rem;
@@ -121,10 +123,11 @@
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 .form-field input:focus {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(245,166,35,0.1);
+  border-color: var(--accent-navy);
+  box-shadow: 0 0 0 3px rgba(27, 43, 94, 0.08);
 }
 .form-field input.error { border-color: var(--accent-red); }
+.form-field input.success { border-color: var(--accent-green); }
 .field-error { font-size: 0.75rem; color: var(--accent-red); margin-top: 0.3rem; }
 
 /* ── OTP Boxes ── */
@@ -137,10 +140,10 @@
 }
 .otp__box {
   width: 52px; height: 60px;
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
+  background: #F5F5F5;
+  border: 1px solid #DDDDDD;
   border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  color: #1A1A1A;
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 800;
@@ -149,8 +152,12 @@
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 .otp__box:focus {
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(245,166,35,0.12);
+  border-color: var(--accent-navy);
+  box-shadow: 0 0 0 3px rgba(27, 43, 94, 0.08);
+}
+.otp__box.filled {
+  border-color: var(--accent-navy);
+  background: rgba(27, 43, 94, 0.04);
 }
 .otp__resend {
   font-size: 0.82rem;
@@ -161,7 +168,7 @@
 .otp__resend button {
   background: none;
   border: none;
-  color: var(--accent-gold);
+  color: var(--accent-navy);
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 600;
@@ -172,8 +179,8 @@
 
 /* ── Order summary ── */
 .order-summary {
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
+  background: #F8F8F8;
+  border: 1px solid #EEEEEE;
   border-radius: var(--radius-md);
   padding: 1.25rem;
   margin-bottom: 1.5rem;
@@ -186,14 +193,14 @@
   margin-bottom: 0.5rem;
 }
 .order-summary__row.total {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #DDDDDD;
   margin-top: 0.75rem;
   padding-top: 0.75rem;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: #1A1A1A;
 }
-.order-summary__row.total span:last-child { color: var(--accent-gold); }
+.order-summary__row.total span:last-child { color: var(--accent-navy); }
 
 /* ── Promo code ── */
 .promo-input-row {
@@ -203,10 +210,10 @@
 }
 .promo-input-row input {
   flex: 1;
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
   border-radius: var(--radius-sm);
-  color: var(--text-primary);
+  color: #1A1A1A;
   font-family: var(--font-body);
   font-size: 0.9rem;
   padding: 0.7rem 1rem;
@@ -215,11 +222,11 @@
   letter-spacing: 0.05em;
   transition: border-color var(--transition);
 }
-.promo-input-row input:focus { border-color: var(--accent-gold); }
+.promo-input-row input:focus { border-color: var(--accent-navy); }
 .btn-apply {
-  background: rgba(245,166,35,0.1);
-  border: 1px solid rgba(245,166,35,0.25);
-  color: var(--accent-gold);
+  background: rgba(27, 43, 94, 0.08);
+  border: 1px solid rgba(27, 43, 94, 0.2);
+  color: var(--accent-navy);
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
@@ -229,12 +236,12 @@
   transition: background var(--transition);
   white-space: nowrap;
 }
-.btn-apply:hover { background: rgba(245,166,35,0.2); }
+.btn-apply:hover { background: rgba(27, 43, 94, 0.15); }
 .promo-applied {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(34,197,94,0.08);
+  background: rgba(34,197,94,0.06);
   border: 1px solid rgba(34,197,94,0.2);
   border-radius: var(--radius-sm);
   padding: 0.6rem 1rem;
@@ -263,10 +270,10 @@
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
-.promo-timer span { 
-  color: #FF3B30; 
-  font-weight: 700; 
-  font-family: var(--font-display); 
+.promo-timer span {
+  color: #DC2626;
+  font-weight: 700;
+  font-family: var(--font-display);
 }
 
 @keyframes pulseUrgent {
@@ -306,15 +313,13 @@
 }
 
 .notification-success {
-  background: rgba(34, 197, 94, 0.1);
+  background: rgba(34, 197, 94, 0.08);
   border: 1px solid rgba(34, 197, 94, 0.25);
-  color: var(--accent-green);
+  color: #16a34a;
 }
 
 .notification-error {
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(220, 38, 38, 0.06);
+  border: 1px solid rgba(220, 38, 38, 0.2);
   color: var(--accent-red);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }

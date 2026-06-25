@@ -2,8 +2,16 @@ const PAY_ADVANCE_CONFIG = {
   key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_live_XXXXXXXXXXXXXXX",
   currency: "INR",
   company: "Aadai Growth Partners",
-  description: "Advance Payment — Direct Buyer Pipeline",
-  theme: { color: "#F5A623" },
+  description: "Category Lock Advance — Founding Batch",
+  theme: { color: "#1B2B5E" },
+  // Single fixed advance plan — ₹5,000 category lock
+  singlePlan: {
+    name: "Category Lock Advance",
+    amount: 500000,   // paise — ₹5,000
+    label: "₹5,000",
+    remaining: 0
+  },
+  // Legacy multi-plan config (kept for backward compatibility, not used in UI)
   plans: {
     1: { name: "Basic Advance",    amount: 399900,  label: "₹3,999",  remaining: 31001 },
     2: { name: "Standard Advance", amount: 799900,  label: "₹7,999",  remaining: 27001 },
@@ -13,6 +21,10 @@ const PAY_ADVANCE_CONFIG = {
 
 export function getAdvancePlans() {
   return PAY_ADVANCE_CONFIG.plans;
+}
+
+export function getSinglePlan() {
+  return PAY_ADVANCE_CONFIG.singlePlan;
 }
 
 export function getPlanById(planId) {
@@ -27,6 +39,49 @@ export function loadRazorpayScript() {
     script.onload  = resolve;
     script.onerror = () => reject(new Error('Razorpay script failed to load'));
     document.body.appendChild(script);
+  });
+}
+
+/**
+ * Initiate the single fixed ₹5,000 category lock advance payment.
+ * userData: { name, email, phone }
+ */
+export async function initiateSingleAdvancePayment(userData) {
+  try {
+    await loadRazorpayScript();
+  } catch (err) {
+    throw new Error("Razorpay SDK not loaded");
+  }
+
+  const plan = PAY_ADVANCE_CONFIG.singlePlan;
+
+  return new Promise((resolve, reject) => {
+    const options = {
+      key:         PAY_ADVANCE_CONFIG.key,
+      amount:      plan.amount,
+      currency:    PAY_ADVANCE_CONFIG.currency,
+      name:        PAY_ADVANCE_CONFIG.company,
+      description: plan.name + " — " + PAY_ADVANCE_CONFIG.description,
+      prefill: {
+        name:    userData?.name    || "",
+        email:   userData?.email   || "",
+        contact: userData?.phone   || userData?.mobile || ""
+      },
+      theme: PAY_ADVANCE_CONFIG.theme,
+      handler: function(response) {
+        resolve({
+          planName:  plan.name,
+          amount:    plan.amount / 100,
+          paymentId: response.razorpay_payment_id
+        });
+      },
+      modal: {
+        ondismiss: () => reject(new Error("Payment dismissed by user"))
+      }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   });
 }
 

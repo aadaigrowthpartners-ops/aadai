@@ -1,6 +1,5 @@
 /* ══════════════════════════════════════════
-   CHECKOUT HEADER STYLES
-   Appended alongside checkout.css
+   HEADER STYLES — Light Enterprise Theme
 ══════════════════════════════════════════ */
 
 .main-header {
@@ -10,10 +9,9 @@
   width: 100%;
   z-index: 99999;
   padding: 0;
-  background: rgba(5, 8, 22, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
 }
 .main-header__inner {
   display: flex;
@@ -35,8 +33,9 @@
   cursor: default;
   white-space: nowrap;
   flex-shrink: 0;
+  color: #1A1A1A;
 }
-.main-header__logo span { color: var(--accent-gold); }
+.main-header__logo span { color: #B8932A; }
 
 /* Nav links */
 .main-header__nav {
@@ -49,7 +48,7 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #1A1A1A;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   transition: color var(--transition), background var(--transition);
@@ -57,8 +56,8 @@
   text-decoration: none;
 }
 .main-header__nav a:hover {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.05);
+  color: #B8932A;
+  background: rgba(184, 147, 42, 0.06);
 }
 
 /* CTA */
@@ -67,7 +66,15 @@
   padding: 0.55rem 1.2rem;
   white-space: nowrap;
   flex-shrink: 0;
+  background: #1B2B5E;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition);
 }
+.main-header__cta:hover { background: #0A1F5C; }
 
 /* Hamburger (mobile) */
 .main-header__burger {
@@ -85,7 +92,7 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--text-primary);
+  background: #1A1A1A;
   border-radius: 2px;
   transition: transform 0.25s, opacity 0.25s;
 }
@@ -99,20 +106,20 @@
   flex-direction: column;
   gap: 0.25rem;
   padding: 1rem 1.5rem 1.5rem;
-  background: rgba(10,10,15,0.97);
-  border-top: 1px solid var(--border);
+  background: #FFFFFF;
+  border-top: 1px solid #EEEEEE;
 }
 .main-header__drawer.open { display: flex; }
 .main-header__drawer a {
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #1A1A1A;
   padding: 0.6rem 0.5rem;
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: color var(--transition);
 }
-.main-header__drawer a:hover { color: var(--accent-gold); }
+.main-header__drawer a:hover { color: #B8932A; }
 .main-header__drawer .btn-primary {
   margin-top: 0.5rem;
   width: 100%;
@@ -125,5 +132,5 @@
   .main-header__burger { display: none; }
 }
 
-/* Push checkout-page content below the header */
+/* Push page content below the fixed header */
 .checkout-page { padding-top: 2rem; }
